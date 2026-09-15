@@ -1,6 +1,8 @@
 pipeline {
-    agent {
-        label 'docker'
+    agent any
+
+    options {
+        timeout(time: 10, unit: 'MINUTES')
     }
 
     environment {
@@ -11,8 +13,14 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker version'
-                    sh 'docker build -t attendance:latest .'
+                    sh '''
+                        command -v docker || {
+                            echo 'Docker is not installed or is not on PATH for this Jenkins agent.'
+                            exit 1
+                        }
+                        docker version
+                        docker build -t attendance:latest .
+                    '''
                 }
             }
         }
