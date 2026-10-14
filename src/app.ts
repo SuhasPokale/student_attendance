@@ -168,6 +168,10 @@ function showModule(id: 'teacher' | 'student' | 'admin'): void {
 
   if (id === 'teacher') {
     initializeAttendanceTable();
+  } else if (id === 'student') {
+    fetchAttendance('studentTable');
+  } else {
+    fetchAttendance('adminTable');
   }
 }
 
@@ -226,8 +230,9 @@ document.addEventListener('DOMContentLoaded', () => {
   studentButton?.addEventListener('click', () => showModule('student'));
   adminButton?.addEventListener('click', () => showModule('admin'));
 
-  const submitButton = document.querySelector('.btn-action');
-  submitButton?.addEventListener('click', submitBulkAttendance);
+  document.getElementById('btn-submit')?.addEventListener('click', submitBulkAttendance);
+  document.getElementById('btn-refresh-student')?.addEventListener('click', () => fetchAttendance('studentTable'));
+  document.getElementById('btn-load-admin')?.addEventListener('click', () => fetchAttendance('adminTable'));
 });
 
 (window as typeof window & {

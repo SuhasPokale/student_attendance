@@ -5,7 +5,9 @@
   "main": "backend/server.ts",
   "scripts": {
     "build": "tsc --project tsconfig.json",
+    "prestart": "npm run build",
     "start": "tsx backend/server.ts",
+    "predev": "npm run build",
     "dev": "tsx backend/server.ts",
     "test": "mocha --require tsx backend/**/*.test.ts --reporter spec"
   },
